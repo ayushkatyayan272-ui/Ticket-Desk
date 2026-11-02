@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ticket Desk - Complaint Management System">
+    <title>Ticket Desk | Complaint Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         AUTHENTICATION
+    ====================================================== -->
+
+    <main id="authScreen" class="auth-screen">
+        <div class="auth-container">
+
+            <section class="auth-hero">
+                <div class="brand">
+                    <span class="brand-mark">T</span>
+                    <span>Ticket Desk</span>
+                </div>
+
+                <div class="auth-hero-content">
+                    <p class="eyebrow">COMPLAINT MANAGEMENT SYSTEM</p>
+                    <h1>A structured way to resolve problems.</h1>
+                    <p>
+                        Submit complaints, coordinate with responsible staff,
+                        and follow every update through one centralized system.
+                    </p>
+                </div>
+
+                <div class="auth-hero-footer">
+                    Complaint Management · Assignment · Status Tracking
+                </div>
+            </section>
+
+            <section class="auth-card">
+
+                <div class="auth-heading">
+                    <p class="eyebrow">WELCOME</p>
+                    <h2>Access your account</h2>
+                    <p>Sign in or create an account to continue.</p>
+                </div>
+
+                <!-- LOGIN -->
+
+                <section id="loginSection" class="auth-section">
+                    <form id="loginForm">
+
+                        <div class="form-group">
+                            <label for="loginEmail">Email address</label>
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                placeholder="name@example.com"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                placeholder="Enter your password"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginRole">Account role</label>
+                            <select id="loginRole" required>
+                                <option value="">Select your role</option>
+                                <option value="user">User</option>
+                                <option value="staff">Staff</option>
+                                <option value="admin">Administrator</option>
+                            </select>
+                        </div>
+
+                        <p id="loginError" class="form-error" role="alert"></p>
+
+                        <button
+                            type="submit"
+                            id="loginButton"
+                            class="btn btn-primary btn-block"
+                        >
+                            Sign In
+                        </button>
+
+                    </form>
+
+                    <p class="auth-switch">
+                        Don't have an account?
+                        <button
+                            type="button"
+                            id="showRegister"
+                            class="text-button"
+                        >
+                            Create account
+                        </button>
+                    </p>
+                </section>
+
+                <!-- REGISTRATION -->
+
+                <section id="registerSection" class="auth-section" hidden>
+
+                    <form id="registerForm">
+
+                        <div class="form-group">
+                            <label for="registerName">Full name</label>
+                            <input
+                                type="text"
+                                id="registerName"
+                                placeholder="Enter your full name"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerEmail">Email address</label>
+                            <input
+                                type="email"
+                                id="registerEmail"
+                                placeholder="name@example.com"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input
+                                type="password"
+                                id="registerPassword"
+                                minlength="8"
+                                placeholder="Minimum 8 characters"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm password</label>
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Re-enter your password"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerRole">Register as</label>
+                            <select id="registerRole" required>
+                                <option value="user">User</option>
+                                <option value="staff">Staff</option>
+                                <option value="admin">Administrator</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="registerOccupationGroup" hidden>
+                            <label for="registerOccupation">
+                                Occupation / Department
+                            </label>
+                            <input
+                                type="text"
+                                id="registerOccupation"
+                                placeholder="e.g. Electrical, IT Support, Plumbing"
+                                maxlength="60"
+                            >
+                        </div>
+
+                        <p id="registerError" class="form-error" role="alert"></p>
+
+                        <button
+                            type="submit"
+                            id="registerButton"
+                            class="btn btn-primary btn-block"
+                        >
+                            Create Account
+                        </button>
+
+                    </form>
+
+                    <p class="auth-switch">
+                        Already registered?
+                        <button
+                            type="button"
+                            id="showLogin"
+                            class="text-button"
+                        >
+                            Sign in
+                        </button>
+                    </p>
+                </section>
+
+            </section>
+        </div>
+    </main>
+
+
+    <!-- =====================================================
+         USER DASHBOARD
+    ====================================================== -->
+
+    <div
+        id="userDashboard"
+        class="app-shell"
+        data-dashboard="user"
+        hidden
+    >
+
+        <header class="app-header">
+
+            <a href="#" class="brand app-brand">
+                <span class="brand-mark">T</span>
+                <span>Ticket Desk</span>
+            </a>
+
+            <div class="header-right">
+                <span class="role-label">USER WORKSPACE</span>
+                <span id="userWelcome" class="header-user">User</span>
+            </div>
+
+        </header>
+
+        <div class="dashboard-layout">
+
+            <!-- USER SIDEBAR -->
+
+            <aside class="sidebar">
+
+                <div class="sidebar-heading">WORKSPACE</div>
+
+                <nav class="sidebar-nav" aria-label="User navigation">
+
+                    <button
+                        class="nav-link active"
+                        type="button"
+                        data-page="user-overview"
+                    >
+                        <span class="nav-icon">▦</span>
+                        Overview
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="user-raise"
+                    >
+                        <span class="nav-icon">＋</span>
+                        Raise Complaint
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="user-complaints"
+                    >
+                        <span class="nav-icon">▤</span>
+                        My Complaints
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="user-notifications"
+                    >
+                        <span class="nav-icon">♧</span>
+                        Notifications
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="user-profile"
+                    >
+                        <span class="nav-icon">♙</span>
+                        My Profile
+                    </button>
+
+                </nav>
+
+                <div class="sidebar-footer">
+                    <span>Ticket Desk</span>
+                    <small>Complaint Management System</small>
+                </div>
+
+            </aside>
+
+
+            <main class="dashboard-content">
+
+                <!-- USER OVERVIEW -->
+
+                <section
+                    id="user-overview"
+                    class="page-section active"
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">USER WORKSPACE</p>
+                            <h1>Overview</h1>
+                            <p>
+                                Monitor your complaints and their current progress.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+
+                        <article class="stat-card">
+                            <span>Total Complaints</span>
+                            <strong id="totalTicketsCount">0</strong>
+                        </article>
+
+                        <article class="stat-card">
+                            <span>Open</span>
+                            <strong id="openTicketsCount">0</strong>
+                        </article>
+
+                        <article class="stat-card">
+                            <span>In Progress</span>
+                            <strong id="progressTicketsCount">0</strong>
+                        </article>
+
+                        <article class="stat-card">
+                            <span>Resolved</span>
+                            <strong id="resolvedTicketsCount">0</strong>
+                        </article>
+
+                    </div>
+
+                    <section class="content-card">
+
+                        <div class="section-heading">
+                            <div>
+                                <h2>How Ticket Desk works</h2>
+                                <p>Follow the complaint resolution process.</p>
+                            </div>
+                        </div>
+
+                        <div class="process-grid">
+
+                            <article class="process-item">
+                                <span class="process-number">01</span>
+                                <h3>Submit</h3>
+                                <p>
+                                    Register your complaint with its relevant details.
+                                </p>
+                            </article>
+
+                            <article class="process-item">
+                                <span class="process-number">02</span>
+                                <h3>Assignment</h3>
+                                <p>
+                                    The administrator assigns your complaint to staff.
+                                </p>
+                            </article>
+
+                            <article class="process-item">
+                                <span class="process-number">03</span>
+                                <h3>Resolution</h3>
+                                <p>
+                                    Staff works on the complaint and reports progress.
+                                </p>
+                            </article>
+
+                            <article class="process-item">
+                                <span class="process-number">04</span>
+                                <h3>Tracking</h3>
+                                <p>
+                                    Receive updates and monitor the final status.
+                                </p>
+                            </article>
+
+                        </div>
+                    </section>
+
+                    <section class="content-card">
+
+                        <div class="section-heading">
+                            <div>
+                                <h2>Quick actions</h2>
+                                <p>
+                                    Frequently used complaint-management options.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="quick-actions">
+
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-page="user-raise"
+                            >
+                                Raise a Complaint
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-page="user-complaints"
+                            >
+                                View My Complaints
+                            </button>
+
+                        </div>
+                    </section>
+
+                </section>
+
+
+                <!-- USER RAISE COMPLAINT -->
+
+                <section
+                    id="user-raise"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">COMPLAINT SERVICES</p>
+                            <h1>Raise a Complaint</h1>
+                            <p>Provide accurate information about the issue.</p>
+                        </div>
+                    </div>
+
+                    <section class="content-card form-card">
+
+                        <form id="createTicketForm">
+
+                            <div class="form-group">
+                                <label for="ticketTitle">Complaint title</label>
+                                <input
+                                    type="text"
+                                    id="ticketTitle"
+                                    placeholder="Briefly describe the issue"
+                                    maxlength="120"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="ticketCategory">Category</label>
+                                    <select id="ticketCategory" required>
+                                        <option value="">Select category</option>
+                                        <option value="Infrastructure">Infrastructure</option>
+                                        <option value="Technical">Technical</option>
+                                        <option value="Administration">Administration</option>
+                                        <option value="Maintenance">Maintenance</option>
+                                        <option value="Facilities">Facilities</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ticketPriority">Priority</label>
+                                    <select id="ticketPriority" required>
+                                        <option value="Low">Low</option>
+                                        <option value="Medium" selected>Medium</option>
+                                        <option value="High">High</option>
+                                        <option value="Urgent">Urgent</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ticketContact">
+                                    Contact information
+                                </label>
+                                <input
+                                    type="text"
+                                    id="ticketContact"
+                                    placeholder="Phone number or alternative contact"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ticketDescription">
+                                    Complaint description
+                                </label>
+                                <textarea
+                                    id="ticketDescription"
+                                    rows="6"
+                                    placeholder="Explain the issue, relevant details and location..."
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <p
+                                id="createTicketError"
+                                class="form-error"
+                                role="alert"
+                            ></p>
+
+                            <div class="form-actions">
+
+                                <button
+                                    type="reset"
+                                    class="btn btn-secondary"
+                                >
+                                    Clear Form
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    id="submitTicketButton"
+                                    class="btn btn-primary"
+                                >
+                                    Submit Complaint
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </section>
+
+                </section>
+
+
+                <!-- USER MY COMPLAINTS -->
+
+                <section
+                    id="user-complaints"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">COMPLAINT SERVICES</p>
+                            <h1>My Complaints</h1>
+                            <p>
+                                Review, search and track your submitted complaints.
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-page="user-raise"
+                        >
+                            + New Complaint
+                        </button>
+                    </div>
+
+                    <section class="content-card">
+
+                        <div class="toolbar">
+
+                            <input
+                                type="search"
+                                id="ticketSearch"
+                                placeholder="Search by ID, title or category..."
+                            >
+
+                            <select id="ticketStatusFilter">
+                                <option value="">All statuses</option>
+                                <option value="Open">Open</option>
+                                <option value="Assigned">Assigned</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Resolved">Resolved</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+
+                            <select id="ticketPriorityFilter">
+                                <option value="">All priorities</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Urgent">Urgent</option>
+                            </select>
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Complaint ID</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Assigned Staff</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="userTicketsTableBody">
+                                    <tr id="emptyTicketsRow">
+                                        <td colspan="8">
+                                            No complaints submitted yet.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p id="ticketListMessage" class="helper-text"></p>
+
+                    </section>
+
+
+                    <!-- COMPLAINT DETAILS -->
+
+                    <section
+                        id="ticketDetailsSection"
+                        class="content-card details-card"
+                        hidden
+                    >
+
+                        <div class="section-heading">
+                            <div>
+                                <p class="eyebrow">COMPLAINT INFORMATION</p>
+                                <h2>Complaint Details</h2>
+                            </div>
+
+                            <button
+                                type="button"
+                                id="closeTicketDetailsButton"
+                                class="btn btn-secondary"
+                            >
+                                Close
+                            </button>
+                        </div>
+
+                        <div class="details-grid">
+
+                            <div>
+                                <span>Complaint ID</span>
+                                <strong id="detailTicketId">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Title</span>
+                                <strong id="detailTicketTitle">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Category</span>
+                                <strong id="detailTicketCategory">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Priority</span>
+                                <strong id="detailTicketPriority">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Status</span>
+                                <strong id="detailTicketStatus">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Assigned Staff</span>
+                                <strong id="detailAssignedStaff">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Submitted On</span>
+                                <strong id="detailTicketDate">—</strong>
+                            </div>
+
+                        </div>
+
+                        <div class="detail-description">
+                            <h3>Description</h3>
+                            <p id="detailTicketDescription">—</p>
+                        </div>
+
+                        <div class="detail-description">
+                            <h3>Staff Progress Update</h3>
+                            <p id="detailStaffResponse">
+                                No update available.
+                            </p>
+                        </div>
+
+                    </section>
+
+
+                    <!-- EDIT COMPLAINT -->
+
+                    <section
+                        id="editTicketSection"
+                        class="content-card"
+                        hidden
+                    >
+
+                        <h2>Edit Complaint</h2>
+
+                        <form id="editTicketForm">
+
+                            <input type="hidden" id="editTicketId">
+
+                            <div class="form-group">
+                                <label for="editTicketTitle">Title</label>
+                                <input
+                                    type="text"
+                                    id="editTicketTitle"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="editTicketCategory">
+                                        Category
+                                    </label>
+                                    <select id="editTicketCategory" required>
+                                        <option value="Infrastructure">Infrastructure</option>
+                                        <option value="Technical">Technical</option>
+                                        <option value="Administration">Administration</option>
+                                        <option value="Maintenance">Maintenance</option>
+                                        <option value="Facilities">Facilities</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="editTicketPriority">
+                                        Priority
+                                    </label>
+                                    <select id="editTicketPriority" required>
+                                        <option value="Low">Low</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="High">High</option>
+                                        <option value="Urgent">Urgent</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="editTicketDescription">
+                                    Description
+                                </label>
+                                <textarea
+                                    id="editTicketDescription"
+                                    rows="5"
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <p
+                                id="editTicketError"
+                                class="form-error"
+                                role="alert"
+                            ></p>
+
+                            <div class="form-actions">
+
+                                <button
+                                    type="button"
+                                    id="cancelEditTicketButton"
+                                    class="btn btn-secondary"
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    id="saveTicketChangesButton"
+                                    class="btn btn-primary"
+                                >
+                                    Save Changes
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </section>
+
+                </section>
+
+
+                <!-- USER NOTIFICATIONS -->
+
+                <section
+                    id="user-notifications"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">ACCOUNT ACTIVITY</p>
+                            <h1>Notifications</h1>
+                            <p>
+                                Updates regarding your complaints and their progress.
+                            </p>
+                        </div>
+                    </div>
+
+                    <section class="content-card">
+
+                        <div
+                            id="userNotificationsList"
+                            class="notification-list"
+                        ></div>
+
+                        <p id="emptyNotificationsMessage" hidden>
+                            You have no notifications at the moment.
+                        </p>
+
+                    </section>
+
+                </section>
+
+
+                <!-- USER PROFILE -->
+
+                <section
+                    id="user-profile"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">ACCOUNT SETTINGS</p>
+                            <h1>My Profile</h1>
+                            <p>View and update your account information.</p>
+                        </div>
+                    </div>
+
+                    <section class="content-card form-card">
+
+                        <form id="userProfileForm">
+
+                            <div class="form-group">
+                                <label for="profileName">Full name</label>
+                                <input
+                                    type="text"
+                                    id="profileName"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileEmail">Email address</label>
+                                <input
+                                    type="email"
+                                    id="profileEmail"
+                                    disabled
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label>Account role</label>
+                                <p id="profileRole">User</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Account created</label>
+                                <p id="profileCreatedAt">—</p>
+                            </div>
+
+                            <p
+                                id="profileError"
+                                class="form-error"
+                                role="alert"
+                            ></p>
+
+                            <button
+                                type="submit"
+                                id="updateProfileButton"
+                                class="btn btn-primary"
+                            >
+                                Update Profile
+                            </button>
+
+                        </form>
+
+                    </section>
+
+                    <!-- LOGOUT: USER -->
+
+                    <section class="profile-security-card">
+
+                        <div>
+                            <h2>Account session</h2>
+                            <p>
+                                Sign out of your Ticket Desk account on this device.
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="userLogoutButton"
+                            class="btn btn-logout"
+                        >
+                            Log Out
+                        </button>
+
+                    </section>
+
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         STAFF DASHBOARD
+    ====================================================== -->
+
+    <div
+        id="staffDashboard"
+        class="app-shell"
+        data-dashboard="staff"
+        hidden
+    >
+
+        <header class="app-header">
+
+            <a href="#" class="brand app-brand">
+                <span class="brand-mark">T</span>
+                <span>Ticket Desk</span>
+            </a>
+
+            <div class="header-right">
+                <span class="role-label">STAFF WORKSPACE</span>
+                <span id="staffWelcome" class="header-user">Staff</span>
+            </div>
+
+        </header>
+
+        <div class="dashboard-layout">
+
+            <!-- STAFF SIDEBAR -->
+
+            <aside class="sidebar">
+
+                <div class="sidebar-heading">STAFF OPERATIONS</div>
+
+                <nav class="sidebar-nav" aria-label="Staff navigation">
+
+                    <button
+                        class="nav-link active"
+                        type="button"
+                        data-page="staff-overview"
+                    >
+                        <span class="nav-icon">▦</span>
+                        Overview
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="staff-assigned"
+                    >
+                        <span class="nav-icon">▤</span>
+                        Assigned Complaints
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="staff-notifications"
+                    >
+                        <span class="nav-icon">♧</span>
+                        Notifications
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="staff-profile"
+                    >
+                        <span class="nav-icon">♙</span>
+                        My Profile
+                    </button>
+
+                </nav>
+
+                <div class="sidebar-footer">
+                    <span>Ticket Desk</span>
+                    <small>Staff Workspace</small>
+                </div>
+
+            </aside>
+
+
+            <main class="dashboard-content">
+
+                <!-- STAFF OVERVIEW -->
+
+                <section
+                    id="staff-overview"
+                    class="page-section active"
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">STAFF WORKSPACE</p>
+                            <h1>Overview</h1>
+                            <p>
+                                Review your workload and complaint progress.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid" id="staffStats">
+
+                        <article class="stat-card">
+                            <span>Assigned Complaints</span>
+                            <strong id="staffAssignedCount">0</strong>
+                        </article>
+
+                        <article class="stat-card">
+                            <span>In Progress</span>
+                            <strong id="staffProgressCount">0</strong>
+                        </article>
+
+                        <article class="stat-card">
+                            <span>Resolved</span>
+                            <strong id="staffResolvedCount">0</strong>
+                        </article>
+
+                    </div>
+
+                    <section class="content-card">
+
+                        <h2>Responsibilities</h2>
+
+                        <div class="process-grid">
+
+                            <article class="process-item">
+                                <span class="process-number">01</span>
+                                <h3>Review</h3>
+                                <p>
+                                    Examine complaints assigned by the administrator.
+                                </p>
+                            </article>
+
+                            <article class="process-item">
+                                <span class="process-number">02</span>
+                                <h3>Work</h3>
+                                <p>
+                                    Address the reported issue and record progress.
+                                </p>
+                            </article>
+
+                            <article class="process-item">
+                                <span class="process-number">03</span>
+                                <h3>Report</h3>
+                                <p>
+                                    Submit status updates to the administrator.
+                                </p>
+                            </article>
+
+                        </div>
+
+                    </section>
+
+                    <section class="content-card">
+
+                        <h2>Recent Assigned Complaints</h2>
+
+                        <div class="table-responsive">
+                            <table>
+
+                                <thead>
+                                    <tr>
+                                        <th>Complaint ID</th>
+                                        <th>Title</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="staffRecentComplaintsBody">
+                                    <tr>
+                                        <td colspan="5">
+                                            No assigned complaints.
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </section>
+
+                </section>
+
+
+                <!-- STAFF ASSIGNED COMPLAINTS -->
+
+                <section
+                    id="staff-assigned"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">COMPLAINT OPERATIONS</p>
+                            <h1>Assigned Complaints</h1>
+                            <p>
+                                Review assigned work and submit progress reports.
+                            </p>
+                        </div>
+                    </div>
+
+                    <section class="content-card">
+
+                        <div class="toolbar">
+
+                            <input
+                                type="search"
+                                id="staffSearch"
+                                placeholder="Search complaints..."
+                            >
+
+                            <select id="staffStatusFilter">
+                                <option value="">All statuses</option>
+                                <option value="Assigned">Assigned</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Resolved">Resolved</option>
+                            </select>
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table>
+
+                                <thead>
+                                    <tr>
+                                        <th>Complaint ID</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="staffComplaintsBody">
+                                    <tr>
+                                        <td colspan="6">
+                                            No assigned complaints.
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </section>
+
+                    <section class="content-card">
+
+                        <h2>Submit Progress Update</h2>
+
+                        <form id="staffUpdateForm">
+
+                            <div class="form-group">
+                                <label for="staffUpdateComplaintId">
+                                    Complaint ID
+                                </label>
+
+                                <select
+                                    id="staffUpdateComplaintId"
+                                    required
+                                >
+                                    <option value="">
+                                        Select assigned complaint
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staffUpdateStatus">
+                                    Updated status
+                                </label>
+
+                                <select id="staffUpdateStatus" required>
+                                    <option value="In Progress">
+                                        In Progress
+                                    </option>
+                                    <option value="Resolved">
+                                        Resolved
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staffUpdateMessage">
+                                    Progress report
+                                </label>
+
+                                <textarea
+                                    id="staffUpdateMessage"
+                                    rows="5"
+                                    placeholder="Describe the work completed or current progress..."
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <p
+                                id="staffUpdateError"
+                                class="form-error"
+                                role="alert"
+                            ></p>
+
+                            <button type="submit" class="btn btn-primary">
+                                Submit Progress to Administrator
+                            </button>
+
+                        </form>
+
+                    </section>
+
+                </section>
+
+
+                <!-- STAFF NOTIFICATIONS -->
+
+                <section
+                    id="staff-notifications"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">ACCOUNT ACTIVITY</p>
+                            <h1>Notifications</h1>
+                            <p>
+                                View new assignments and administrative updates.
+                            </p>
+                        </div>
+                    </div>
+
+                    <section class="content-card">
+
+                        <div
+                            id="staffNotificationsList"
+                            class="notification-list"
+                        ></div>
+
+                        <p id="staffEmptyNotifications" hidden>
+                            No notifications available.
+                        </p>
+
+                    </section>
+
+                </section>
+
+
+                <!-- STAFF PROFILE -->
+
+                <section
+                    id="staff-profile"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">ACCOUNT SETTINGS</p>
+                            <h1>My Profile</h1>
+                            <p>Manage your account information.</p>
+                        </div>
+                    </div>
+
+                    <section class="content-card form-card">
+
+                        <form id="staffProfileForm">
+
+                            <div class="form-group">
+                                <label for="staffProfileName">Full name</label>
+                                <input
+                                    type="text"
+                                    id="staffProfileName"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staffProfileEmail">Email</label>
+                                <input
+                                    type="email"
+                                    id="staffProfileEmail"
+                                    disabled
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staffProfileOccupation">
+                                    Occupation / Department
+                                </label>
+                                <input
+                                    type="text"
+                                    id="staffProfileOccupation"
+                                    disabled
+                                >
+                            </div>
+
+                            <p id="staffProfileRole">Staff</p>
+                            <p id="staffProfileCreatedAt"></p>
+
+                            <p
+                                id="staffProfileError"
+                                class="form-error"
+                                role="alert"
+                            ></p>
+
+                            <button type="submit" class="btn btn-primary">
+                                Update Profile
+                            </button>
+
+                        </form>
+
+                    </section>
+
+                    <!-- LOGOUT: STAFF -->
+
+                    <section class="profile-security-card">
+
+                        <div>
+                            <h2>Account session</h2>
+                            <p>
+                                Sign out of your Ticket Desk staff account
+                                on this device.
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="staffLogoutButton"
+                            class="btn btn-logout"
+                        >
+                            Log Out
+                        </button>
+
+                    </section>
+
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         ADMINISTRATOR DASHBOARD
+    ====================================================== -->
+
+    <div
+        id="adminDashboard"
+        class="app-shell"
+        data-dashboard="admin"
+        hidden
+    >
+
+        <header class="app-header">
+
+            <a href="#" class="brand app-brand">
+                <span class="brand-mark">T</span>
+                <span>Ticket Desk</span>
+            </a>
+
+            <div class="header-right">
+                <span class="role-label">ADMINISTRATOR</span>
+                <span id="adminWelcome" class="header-user">
+                    Administrator
+                </span>
+            </div>
+
+        </header>
+
+        <div class="dashboard-layout">
+
+            <!-- ADMIN SIDEBAR -->
+
+            <aside class="sidebar">
+
+                <div class="sidebar-heading">ADMINISTRATION</div>
+
+                <nav
+                    class="sidebar-nav"
+                    aria-label="Administrator navigation"
+                >
+
+                    <button
+                        class="nav-link active"
+                        type="button"
+                        data-page="admin-overview"
+                    >
+                        <span class="nav-icon">▦</span>
+                        Overview
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="admin-complaints"
+                    >
+                        <span class="nav-icon">▤</span>
+                        All Complaints
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="admin-assignment"
+                    >
+                        <span class="nav-icon">⇄</span>
+                        Assign Staff
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="admin-staff"
+                    >
+                        <span class="nav-icon">♙</span>
+                        Staff Management
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="admin-reports"
+                    >
+                        <span class="nav-icon">▥</span>
+                        Reports
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="admin-notifications"
+                    >
+                        <span class="nav-icon">♧</span>
+                        Notifications
+                    </button>
+
+                    <button
+                        class="nav-link"
+                        type="button"
+                        data-page="admin-profile"
+                    >
+                        <span class="nav-icon">♙</span>
+                        My Profile
+                    </button>
+
+                </nav>
+
+                <div class="sidebar-footer">
+                    <span>Ticket Desk</span>
+                    <small>Administration Workspace</small>
+                </div>
+
+            </aside>
+
+
+            <main class="dashboard-content">
+
+                <!-- ADMIN OVERVIEW -->
+
+                <section
+                    id="admin-overview"
+                    class="page-section active"
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">ADMINISTRATION</p>
+                            <h1>Overview</h1>
+                            <p>
+                                Monitor complaints, staff assignments and
+                                resolution activity.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+
+                        <article class="stat-card">
+                            <span>Total Complaints</span>
+                            <strong id="adminTotalCount">0</strong>
+                        </article>
+
+                        <article class="stat-card">
+                            <span>Open</span>
+                            <strong id="adminOpenCount">0</strong>
+                        </article>
+
+                        <article class="stat-card">
+                            <span>Assigned</span>
+                            <strong id="adminAssignedCount">0</strong>
+                        </article>
+
+                        <article class="stat-card">
+                            <span>In Progress</span>
+                            <strong id="adminProgressCount">0</strong>
+                        </article>
+
+                        <article class="stat-card">
+                            <span>Resolved</span>
+                            <strong id="adminResolvedCount">0</strong>
+                        </article>
+
+                    </div>
+
+                    <section class="content-card">
+
+                        <h2>Administrative responsibilities</h2>
+
+                        <div class="process-grid">
+
+                            <article class="process-item">
+                                <span class="process-number">01</span>
+                                <h3>Review complaints</h3>
+                                <p>
+                                    Examine complaints submitted by users.
+                                </p>
+                            </article>
+
+                            <article class="process-item">
+                                <span class="process-number">02</span>
+                                <h3>Assign staff</h3>
+                                                                <p>
+                                    Allocate complaints to appropriate
+                                    staff members.
+                                </p>
+                            </article>
+
+                            <article class="process-item">
+                                <span class="process-number">03</span>
+                                <h3>Monitor progress</h3>
+                                <p>
+                                    Review staff updates and monitor resolution.
+                                </p>
+                            </article>
+
+                            <article class="process-item">
+                                <span class="process-number">04</span>
+                                <h3>Inform users</h3>
+                                <p>
+                                    Communicate status changes and
+                                    administrative updates.
+                                </p>
+                            </article>
+
+                        </div>
+
+                    </section>
+
+                    <section class="content-card">
+
+                        <h2>Recent Complaints</h2>
+
+                        <div class="table-responsive">
+                            <table>
+
+                                <thead>
+                                    <tr>
+                                        <th>Complaint ID</th>
+                                        <th>Title</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Assigned Staff</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="adminRecentComplaintsBody">
+                                    <tr>
+                                        <td colspan="5">
+                                            No complaints available.
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </section>
+
+                </section>
+
+
+                <!-- ADMIN ALL COMPLAINTS -->
+
+                <section
+                    id="admin-complaints"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">COMPLAINT MANAGEMENT</p>
+                            <h1>All Complaints</h1>
+                            <p>
+                                Review and manage complaints submitted by users.
+                            </p>
+                        </div>
+                    </div>
+
+                    <section class="content-card">
+
+                        <div class="toolbar">
+
+                            <input
+                                type="search"
+                                id="adminSearch"
+                                placeholder="Search ID, title or user..."
+                            >
+
+                            <select id="adminStatusFilter">
+                                <option value="">All statuses</option>
+                                <option value="Open">Open</option>
+                                <option value="Assigned">Assigned</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Resolved">Resolved</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table>
+
+                                <thead>
+                                    <tr>
+                                        <th>Complaint ID</th>
+                                        <th>Title</th>
+                                        <th>User</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Assigned Staff</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="adminComplaintsBody">
+                                    <tr>
+                                        <td colspan="7">
+                                            No complaints available.
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </section>
+
+                    <!-- ADMIN COMPLAINT DETAILS -->
+
+                    <section
+                        id="adminComplaintDetails"
+                        class="content-card"
+                        hidden
+                    >
+
+                        <div class="section-heading">
+                            <div>
+                                <p class="eyebrow">COMPLAINT REVIEW</p>
+                                <h2>Manage Complaint</h2>
+                            </div>
+                        </div>
+
+                        <p
+                            id="adminComplaintInformation"
+                            class="complaint-information"
+                        ></p>
+
+                        <form id="adminUpdateComplaintForm">
+
+                            <input type="hidden" id="adminComplaintId">
+
+                            <div class="form-group">
+                                <label for="adminAssignStaff">
+                                    Assign Staff Member
+                                </label>
+
+                                <select id="adminAssignStaff">
+                                    <option value="">
+                                        Select staff member
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="adminUpdateStatus">
+                                    Complaint status
+                                </label>
+
+                                <select id="adminUpdateStatus">
+                                    <option value="Open">Open</option>
+                                    <option value="Assigned">Assigned</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Resolved">Resolved</option>
+                                    <option value="Closed">Closed</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="adminRemarks">
+                                    Message to user
+                                </label>
+
+                                <textarea
+                                    id="adminRemarks"
+                                    rows="4"
+                                    placeholder="Enter an administrative update..."
+                                ></textarea>
+                            </div>
+
+                            <p
+                                id="adminUpdateError"
+                                class="form-error"
+                                role="alert"
+                            ></p>
+
+                            <div class="form-actions">
+
+                                <button
+                                    type="button"
+                                    id="closeAdminComplaintDetails"
+                                    class="btn btn-secondary"
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                >
+                                    Save Changes
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </section>
+
+                </section>
+
+
+                <!-- ADMIN ASSIGNMENT -->
+
+                <section
+                    id="admin-assignment"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">WORK ALLOCATION</p>
+                            <h1>Assign Staff</h1>
+                            <p>
+                                Allocate open complaints to available staff members.
+                            </p>
+                        </div>
+                    </div>
+
+                    <section class="content-card">
+
+                        <div class="toolbar">
+                            <input
+                                type="search"
+                                id="assignmentSearch"
+                                placeholder="Search unassigned complaints..."
+                            >
+                        </div>
+
+                        <div class="table-responsive">
+                            <table>
+
+                                <thead>
+                                    <tr>
+                                        <th>Complaint ID</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Priority</th>
+                                        <th>Submitted</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="unassignedComplaintsBody">
+                                    <tr>
+                                        <td colspan="6">
+                                            No unassigned complaints.
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </section>
+
+                </section>
+
+
+                <!-- ADMIN STAFF MANAGEMENT -->
+
+                <section
+                    id="admin-staff"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">RESOURCE MANAGEMENT</p>
+                            <h1>Staff Management</h1>
+                            <p>
+                                View staff members and their assigned workloads.
+                            </p>
+                        </div>
+                    </div>
+
+                    <section class="content-card">
+
+                        <div class="toolbar">
+                            <input
+                                type="search"
+                                id="adminStaffSearch"
+                                placeholder="Search staff members..."
+                            >
+                        </div>
+
+                        <div id="adminStaffList" class="staff-list"></div>
+
+                    </section>
+
+                </section>
+
+
+                <!-- ADMIN REPORTS -->
+
+                <section
+                    id="admin-reports"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">SYSTEM ANALYSIS</p>
+                            <h1>Reports</h1>
+                            <p>
+                                Review complaint statistics and
+                                resolution performance.
+                            </p>
+                        </div>
+                    </div>
+
+                    <section class="content-card">
+
+                        <div class="section-heading">
+
+                            <div>
+                                <h2>Complaint Summary</h2>
+                            </div>
+
+                            <button
+                                type="button"
+                                id="exportReportButton"
+                                class="btn btn-secondary"
+                            >
+                                Export CSV
+                            </button>
+
+                        </div>
+
+                        <div id="adminReports" class="report-content"></div>
+
+                    </section>
+
+                </section>
+
+
+                <!-- ADMIN NOTIFICATIONS -->
+
+                <section
+                    id="admin-notifications"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">SYSTEM ACTIVITY</p>
+                            <h1>Notifications</h1>
+                            <p>
+                                Review staff progress reports and system updates.
+                            </p>
+                        </div>
+                    </div>
+
+                    <section class="content-card">
+
+                        <div
+                            id="adminNotificationsList"
+                            class="notification-list"
+                        ></div>
+
+                        <p id="adminEmptyNotifications" hidden>
+                            No notifications available.
+                        </p>
+
+                    </section>
+
+                </section>
+
+
+                <!-- ADMIN PROFILE -->
+
+                <section
+                    id="admin-profile"
+                    class="page-section"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <div>
+                            <p class="eyebrow">ACCOUNT SETTINGS</p>
+                            <h1>My Profile</h1>
+                            <p>
+                                Manage administrator account information.
+                            </p>
+                        </div>
+                    </div>
+
+                    <section class="content-card form-card">
+
+                        <form id="adminProfileForm">
+
+                            <div class="form-group">
+                                <label for="adminProfileName">Full name</label>
+                                <input
+                                    type="text"
+                                    id="adminProfileName"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="adminProfileEmail">Email</label>
+                                <input
+                                    type="email"
+                                    id="adminProfileEmail"
+                                    disabled
+                                >
+                            </div>
+
+                            <p id="adminProfileRole">Administrator</p>
+                            <p id="adminProfileCreatedAt"></p>
+
+                            <p
+                                id="adminProfileError"
+                                class="form-error"
+                                role="alert"
+                            ></p>
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+                                Update Profile
+                            </button>
+
+                        </form>
+
+                    </section>
+
+                    <!-- LOGOUT: ADMINISTRATOR -->
+
+                    <section class="profile-security-card">
+
+                        <div>
+                            <h2>Account session</h2>
+                            <p>
+                                Sign out of your Ticket Desk administrator
+                                account on this device.
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="adminLogoutButton"
+                            class="btn btn-logout"
+                        >
+                            Log Out
+                        </button>
+
+                    </section>
+
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         GLOBAL UI ELEMENTS
+    ====================================================== -->
+
+    <div
+        id="resolveToast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
