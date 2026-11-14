@@ -4,7 +4,7 @@
    TICKET DESK — Supabase-backed version
 ========================================================= */
 
-const SUPABASE_URL = "https://yluzrfoothkhbdfcavfg.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://yluzrfoothkhbdfcavfg.supabase.co";
 const SUPABASE_KEY = "sb_publishable_9Ins0PD_oA_6v0F_HHollg_FokXFxZl";
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
